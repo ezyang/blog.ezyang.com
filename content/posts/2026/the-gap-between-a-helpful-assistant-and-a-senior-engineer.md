@@ -3,7 +3,7 @@ title: "The gap between a Helpful Assistant and a Senior Engineer"
 date: 2026-01-03 13:25:36
 slug: the-gap-between-a-helpful-assistant-and-a-senior-engineer
 draft: true
-categories: [Miscellaneous]
+categories: [AI Coding]
 ---
 
 Let's suppose you asked an AI coding agent to "implement a CLI calculator".
@@ -39,81 +39,33 @@ a few questions to clarify the task upfront, but if your coding agent starts
 asking you about "relevant partner teams" and "org-wide priorities for this
 half" you are definitely going to raise an eyebrow.
 
-What does this mean in practice? One of the things I worry the most in my
-day-to-day life working on PyTorch is the current bottleneck on TL reviewer
-bandwidth: TLs have always been overloaded with sense making /
-consensus-building / overall system design parts of software development, and
-AI coding is only making it worse.  And the argument above suggests that
-without the major unlock of continual learning or persistent context, in the
-short term LLMs aren't going to make a dent on this: they can help you
-brainstorm things to think about, they can rubber duck with you, they can
-investigate the codebase; but at the end of the day, the "helpful assistant"
-frame means that a human has to actually operate the thing.
-
-So now we have a fork in the road: we can assume that the human will always be
-setting the context, and look for smaller interventions in the role of "senior
-engineer" where LLMs can obviously help speed things up.  Or, we can think
-about what it would take for an LLM to be able to act like a Senior Engineer,
-including improvements to the models:
+What would take for an LLM to be able to act like a Senior Engineer?
 
 * Perhaps prompting is all you need, and you just need to write enough
   information about the surrounding context for a project, and once you feed
   in enough tokens, a smart model can infer the rest of the details you didn't
-  explicitly right down.
+  explicitly right down.  This context would be bespoke for every project; you
+  would have to redo this exercise every time you had a new project!
 
 * Perhaps you can instead prompt a model on *how* to operate agentically to get
-  the context it needs.  This prompt here might be generalizable to multiple contexts.
-  You definitely do want the LLM to be asking lots of questions in this regime!
+  the context it needs.  This prompt here might be more reusable.
+  But the model may need to actually do wetwork (e.g., talk to humans) to get
+  all of the information it needs.  And remember the old saying: the more generic
+  the advice is, the less useful it is.  Specificity is king, which leads to...
 
-* Let's say we solve continual learning.  You wouldn't craft the perfect
-  prompt; instead, you'd just drop the model as an "embodied" software
+* Let's say we solve continual learning.  Instead of crafting the perfect
+  prompt upfront; you could just drop the model as an "embodied" software
   developer.  It reads code, talks to people, does projects, and in doing so
   slowly develops its latent context, in the same way a human engineer does.
   Building context will often be bottlenecked in the same way humans are: you
   can't get experience related to pushing a feature to production, until
-  you've actually pushed the feature to production.
+  you've actually pushed the feature to production (however long that takes).
 
-P.S. Not good for safety.
-
-
-The billion dollar question is 
-
-I have been trying to understand what, today, I should be doing differently in the age of LLM-enabled software engineering. 
-
-
-
-Much ink has been spilled about the context problem for agents--the problem of how to create an AI that can continually learn.  The miracle of modern coding agents is that it turns out that by simply grepping around and reading a codebase, an agent can gain enough context to do useful tasks.
-
-
-Even if you asked an LLM to think about these things (and it certainly has heard of all of these things, and will happy add tests and log lines if you ask it to), without a nuanced enough understanding of the context of the system, we can't trust the LLM to make the right decisions (after all, a decision that is right in one context, can be wrong in another! Extensive testing is counterproductive if you are rapidly prototyping or doing investigatory work, but it is table stakes for a widely used production system.)
-
-Even in humans, building up all of this context is expensive.
-
-
-
-
-Top line: whatever is I'm hypothesizing about here, should lead ACTIONABLE things to do today
-
-Context is expensive to build
-Context is location dependent.
-
-
-Examples: is where depending on context, doing X is exactly the right thing or the wrong thing. What the right thing is depend on context.
-
-Rapid prototyping context versus the production engineering context.  (Example: traditional infra versus ML infra)
-
-
-
-Context evolution
-
-
-
-
-There are lots of reasons why LLMs aren't (currently) replacing human programmers.  But a lot of discussion about scaling
-
-What do I mean by 'Helpful'?  HHH.
-
-What do I mean by 'Staff Engineer'?  https://staffeng.com/
-
-
-
+But just like how you shouldn't micromanage a Senior Engineer, all of these
+approaches involve fundamentally different expectations about what an AI
+coding agent should *do*, and so even if a model and scaffold are capable of
+doing these things, it is altogether another question if it will be asked to
+behave in this way.  So let's not take it as a foregone conclusion that METR
+task times will keep following the empirical trendline: I expect a phase
+transition when the context an LLM needs to do a good job exceeds the
+capability of scaffolding to provide on the fly.

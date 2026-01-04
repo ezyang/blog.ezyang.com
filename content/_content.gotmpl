@@ -1,0 +1,32 @@
+{{- $pages := where site.RegularPages "Section" "posts" -}}
+{{- $content := slice -}}
+
+{{- range $pages.GroupByDate "2006" -}}
+  {{- $year := .Key -}}
+  {{- if ge $year "2000" -}}
+    {{- $content = $content | append (dict
+      "path" (printf "archives/years/%s" $year)
+      "title" $year
+      "layout" "archive"
+      "url" (printf "/%s/" $year)
+      "params" (dict "archiveYear" (int $year))
+    ) -}}
+  {{- end -}}
+{{- end -}}
+
+{{- range $pages.GroupByDate "2006-01" -}}
+  {{- $key := .Key -}}
+  {{- $parts := split $key "-" -}}
+  {{- $year := index $parts 0 -}}
+  {{- $month := index $parts 1 | int -}}
+  {{- $t := time (printf "%s-01" $key) -}}
+  {{- $content = $content | append (dict
+    "path" (printf "archives/months/%s" $key)
+    "title" ($t.Format "January 2006")
+    "layout" "archive"
+    "url" (printf "/%s/%02d/" $year $month)
+    "params" (dict "archiveYear" (int $year) "archiveMonth" $month)
+  ) -}}
+{{- end -}}
+
+{{- $content | jsonify -}}
