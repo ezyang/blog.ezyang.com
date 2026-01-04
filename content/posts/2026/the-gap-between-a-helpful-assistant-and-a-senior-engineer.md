@@ -1,8 +1,7 @@
 ---
 title: "The gap between a Helpful Assistant and a Senior Engineer"
-date: 2026-01-03 13:25:36
+date: 2026-01-04 05:41:00
 slug: the-gap-between-a-helpful-assistant-and-a-senior-engineer
-draft: true
 categories: [AI Coding]
 ---
 
