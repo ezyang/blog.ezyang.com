@@ -286,6 +286,8 @@ footer.wrap {
 ul.pages {
   list-style: none;
   margin-top: 0;
+  padding-left: 0;
+  text-align: center;
 }
 
 ul.pages li {
