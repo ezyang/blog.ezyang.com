@@ -1,0 +1,99 @@
+name: Preview Hugo site for PRs
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages-preview-${{ github.event.pull_request.number }}"
+  cancel-in-progress: true
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      HUGO_VERSION: 0.145.0
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Install Hugo CLI
+        run: |
+          wget -O ${{ runner.temp }}/hugo.deb https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb \
+          && sudo dpkg -i ${{ runner.temp }}/hugo.deb
+
+      - name: Setup Pages
+        id: pages
+        uses: actions/configure-pages@v5
+
+      - name: Generate year/month archives
+        run: |
+          for dir in content/posts/*/; do
+            year=$(basename "$dir")
+            # Create year index
+            mkdir -p "content/$year"
+            cat > "content/$year/_index.md" << EOF
+          ---
+          title: "$year"
+          layout: archive
+          archiveYear: $year
+          ---
+          EOF
+            # Create month indexes
+            for post in "$dir"*.md "$dir"*.html; do
+              [ -f "$post" ] || continue
+              month=$(grep -m1 "^date:" "$post" | grep -oE '[0-9]{4}-[0-9]{2}' | cut -d- -f2)
+              if [ -n "$month" ]; then
+                mkdir -p "content/$year/$month"
+                [ -f "content/$year/$month/_index.md" ] || cat > "content/$year/$month/_index.md" << EOF
+          ---
+          title: "$year/$month"
+          layout: archive
+          archiveYear: $year
+          archiveMonth: $month
+          ---
+          EOF
+              fi
+            done
+          done
+
+      - name: Build with Hugo
+        env:
+          HUGO_CACHEDIR: ${{ runner.temp }}/hugo_cache
+          HUGO_ENVIRONMENT: production
+          TZ: America/Los_Angeles
+        run: |
+          hugo \
+            --buildDrafts \
+            --gc \
+            --minify
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./public
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages (preview)
+        id: deployment
+        uses: actions/deploy-pages@v4
+        with:
+          preview: true
