@@ -1,0 +1,36 @@
+{{ define "main" }}
+<section class="archives">
+  <h2>Archives</h2>
+
+  <h3>Years</h3>
+  <p class="tag-cloud">
+    {{- range (where site.RegularPages "Section" "posts").GroupByDate "2006" }}
+    {{- if ge .Key "2000" }}
+    <span class="tag-item"><a href="/{{ .Key }}/">{{ .Key }}</a>&nbsp;<span class="count">({{ len .Pages }})</span></span>
+    {{- end }}
+    {{- end }}
+  </p>
+
+  <h3>Categories</h3>
+  <p class="tag-cloud">
+    {{- range site.Taxonomies.categories.ByCount }}
+    <span class="tag-item"><a href="{{ .Page.Permalink }}">{{ .Page.Title }}</a>&nbsp;<span class="count">({{ .Count }})</span></span>
+    {{- end }}
+  </p>
+
+  <h3>All Articles</h3>
+  {{- range (where site.RegularPages "Section" "posts").GroupByDate "2006" }}
+  {{- if ge .Key "2000" }}
+  <h4>{{ .Key }}</h4>
+  <ul class="archive-list">
+    {{- range .Pages }}
+    <li>
+      <a href="{{ .Permalink }}">{{ .Title }}</a>
+      <span class="archive-date">{{ .Date.Format "January 2" }}</span>
+    </li>
+    {{- end }}
+  </ul>
+  {{- end }}
+  {{- end }}
+</section>
+{{ end }}

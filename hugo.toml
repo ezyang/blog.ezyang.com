@@ -26,6 +26,15 @@ theme = 'ashley'
   home = ['HTML', 'RSS']
   section = ['HTML', 'RSS']
 
+# RSS feed alias - WordPress used /feed/
+[outputFormats]
+  [outputFormats.RSS]
+    baseName = "feed"
+
+[taxonomies]
+  category = "categories"
+  tag = "tags"
+
 [sitemap]
   changefreq = 'weekly'
   priority = 0.5

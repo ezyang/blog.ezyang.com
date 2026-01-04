@@ -453,3 +453,13 @@ td, table, th { border:0; }
 table { margin-top: 1em; }
 
 .pages { text-transform: lowercase; }
+
+/* Archives page */
+.archives h3 { margin-top: 2em; }
+.archives h4 { margin-top: 1.5em; margin-bottom: 0.5em; }
+.archive-list { list-style: none; padding-left: 0; }
+.archive-list li { margin: 0.3em 0; }
+.archive-date { color: #aaa; font-size: 14px; margin-left: 0.5em; }
+.tag-cloud { line-height: 2.2; }
+.tag-item { margin-right: 1.5em; white-space: nowrap; }
+.tag-item .count { color: #aaa; font-size: 14px; }

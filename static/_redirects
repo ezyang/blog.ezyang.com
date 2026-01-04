@@ -1,0 +1,3 @@
+# Netlify-style redirects (also works with some other hosts)
+/feed    /feed.xml    301
+/feed/   /feed.xml    301
