@@ -6,32 +6,32 @@ draft: true
 categories: [Miscellaneous]
 ---
 
-Here are a list of tips for setting up a Windows build server that integrates with an existing Unix environment using a combination of MinGW and Cygwin (and how to prevent yourself from mixing the two up!)
+<p>Here are a list of tips for setting up a Windows build server that integrates with an existing Unix environment using a combination of MinGW and Cygwin (and how to prevent yourself from mixing the two up!)</p>
 
-1. *Get remote desktop functionality.* One notable thing Cygwin will not give you is a way to interact with the Windows graphical user interface, which you will invariably want to do with certain tasks (like installing software). If you happen to have a Professional (or better) copy of Windows, you don’t even have to download any extra software: you can use the built-in *Windows Remote Services*, which is extremely well integrated with the platform (and performs much more smoothly than I remember TightVNC doing.) Just go to *System Properties > Remote > Remote Desktop.*
+<p>1. *Get remote desktop functionality.* One notable thing Cygwin will not give you is a way to interact with the Windows graphical user interface, which you will invariably want to do with certain tasks (like installing software). If you happen to have a Professional (or better) copy of Windows, you don’t even have to download any extra software: you can use the built-in *Windows Remote Services*, which is extremely well integrated with the platform (and performs much more smoothly than I remember TightVNC doing.) Just go to *System Properties > Remote > Remote Desktop.*</p>
 
-2. *Get the ability to SSH in.* SSH is the lingua franca of remote computing in the Linux world, and as a command line user I want most of time to be spent in a Unix shell on my usual terminal. However, 
+<p>2. *Get the ability to SSH in.* SSH is the lingua franca of remote computing in the Linux world, and as a command line user I want most of time to be spent in a Unix shell on my usual terminal. However,</p>
 
-configure ssh
+<p>configure ssh</p>
 
-cyglsa-config
+<p>cyglsa-config</p>
 
-ssh-host-config
+<p>ssh-host-config</p>
 
-replicate user account information
+<p>replicate user account information</p>
 
-turn off Windows Firewall (or poke a hole for port 22) and Windows Defender
+<p>turn off Windows Firewall (or poke a hole for port 22) and Windows Defender</p>
 
-bashrc make control-arrow work
+<p>bashrc make control-arrow work</p>
 
-setup TEMP/TMP/TMPDIR to explicitly point to /tmp
+<p>setup TEMP/TMP/TMPDIR to explicitly point to /tmp</p>
 
-careful about tty versus notty, prevailing advice incorrect
+<p>careful about tty versus notty, prevailing advice incorrect</p>
 
-set TERM properly
+<p>set TERM properly</p>
 
-Git and SSH don't work http://www.cygwin.com/ml/cygwin/2010-01/msg00348.html
+<p>Git and SSH don't work http://www.cygwin.com/ml/cygwin/2010-01/msg00348.html</p>
 
-allow for clean-room MingW development without cygwin
+<p>allow for clean-room MingW development without cygwin</p>
 
-open question: cannot get terminal info problem
+<p>open question: cannot get terminal info problem</p>

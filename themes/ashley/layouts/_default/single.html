@@ -22,10 +22,10 @@
 
   <div class="pagination p">
     {{ with .PrevInSection }}
-    <span class="previous"><a href="{{ .Permalink }}">&laquo; Previous Post</a></span>
+    <span class="previous"><a href="{{ .RelPermalink }}">&laquo; Previous Post</a></span>
     {{ end }}
     {{ with .NextInSection }}
-    <span class="next"><a href="{{ .Permalink }}">Next Post &raquo;</a></span>
+    <span class="next"><a href="{{ .RelPermalink }}">Next Post &raquo;</a></span>
     {{ end }}
   </div>
 </section>

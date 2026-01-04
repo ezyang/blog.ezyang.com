@@ -6,24 +6,24 @@ draft: true
 categories: [Miscellaneous]
 ---
 
- For example, consider this variant of ``sequence`` specialized for the ST monad::
+<p>For example, consider this variant of ``sequence`` specialized for the ST monad::</p>
 
-  sequenceST :: [forall s. ST s a] -> forall s. ST s [a]
+<p>sequenceST :: [forall s. ST s a] -> forall s. ST s [a]</p>
 
-(You’ll need the language extensions ``RankNTypes`` and ``ImpredicativeTypes``. We don’t bother with ``forall a s. [ST s a] -> ST s [a]``, which is easy.) Due to the inner universal quantifications, we can’t just straightforwardly cast ``sequence`` into this new type. We might hope that we can reuse the implementation though: operationally, nothing has changed! But we get in trouble::
+<p>(You’ll need the language extensions ``RankNTypes`` and ``ImpredicativeTypes``. We don’t bother with ``forall a s. [ST s a] -> ST s [a]``, which is easy.) Due to the inner universal quantifications, we can’t just straightforwardly cast ``sequence`` into this new type. We might hope that we can reuse the implementation though: operationally, nothing has changed! But we get in trouble::</p>
 
-    sequenceST :: [forall s. ST s a] -> forall s. ST s [a]
+<p>sequenceST :: [forall s. ST s a] -> forall s. ST s [a]
     sequenceST ms = foldr k (return []) ms
             where
-              k m m' = do { x <- m; xs <- m'; return (x:xs) }
+              k m m' = do { x <- m; xs <- m'; return (x:xs) }</p>
 
-    paccum.hs:21:37:
+<p>paccum.hs:21:37:
         Couldn't match expected type `ST s a'
                     with actual type `forall s1. ST s1 a'
         Expected type: [ST s a]
           Actual type: [forall s1. ST s1 a]
         In the third argument of `foldr', namely `ms'
         In the expression: foldr k (return []) ms
-    Failed, modules loaded: none.
+    Failed, modules loaded: none.</p>
 
-So let’s think a little bit about what is going on here. Think of each of the values ``forall s. ST s a`` as functions from a type (named ``s``) to a type ``ST s a``. We have been given a list of functions, and are expected to return a new function which takes any type ``s`` and returns a value ``ST s a``. If this were the reader monad, we would have ``[r -> a] -> r -> [a]``: here it becomes clear that argument of the return function (``r -> [a]``) must provide the value which feeds into all of the functions in the list: there is no where else we could get this value!
+<p>So let’s think a little bit about what is going on here. Think of each of the values ``forall s. ST s a`` as functions from a type (named ``s``) to a type ``ST s a``. We have been given a list of functions, and are expected to return a new function which takes any type ``s`` and returns a value ``ST s a``. If this were the reader monad, we would have ``[r -> a] -> r -> [a]``: here it becomes clear that argument of the return function (``r -> [a]``) must provide the value which feeds into all of the functions in the list: there is no where else we could get this value!</p>

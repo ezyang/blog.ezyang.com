@@ -409,9 +409,22 @@ pre {
     margin-left: 3em;
 }
 
+/* Legacy nested div centering (from ReST plugin) */
 .inner-image img {position: relative; left:-50%; margin: 1.5em 0; }
 .outer-image {width: 80%; margin: 0 auto; overflow: visible; }
 .inner-image {display: inline-block; position:relative; right: -50%;float: left;}
+
+/* Center images in posts - only when there's margin space */
+.post img {
+  display: block;
+  margin: 1.5em auto;
+  max-width: 100%;
+}
+@media screen and (min-width: 640px) {
+  .post img {
+    max-width: 80%;
+  }
+}
 
 .mahjong {margin-left:10%}
 .mahjong .outer-image {width: 100%;}

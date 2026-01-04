@@ -6,31 +6,31 @@ draft: true
 categories: [Miscellaneous]
 ---
 
-jmcarthur
+<p>jmcarthur</p>
 
-So, historically, when we want to write clear code, we pay a performance cost, and if we want it fast, we have to destruct it into      
-       low-level code. But what if we wrote clear code, and then wrote appropriate optimizations (rewrites) to make it into the fast code?
+<p>So, historically, when we want to write clear code, we pay a performance cost, and if we want it fast, we have to destruct it into      
+       low-level code. But what if we wrote clear code, and then wrote appropriate optimizations (rewrites) to make it into the fast code?</p>
 
-oddly enough, literally the second before i read what you said, i was thinking about what it might be like to have an interactive session  
-       with the compiler's optimizer to have kind of a back-and-forth conversation about program transformations 
+<p>oddly enough, literally the second before i read what you said, i was thinking about what it might be like to have an interactive session  
+       with the compiler's optimizer to have kind of a back-and-forth conversation about program transformations</p>
 
-anyway, my idea is that maybe there could be the programmer-visible code and some other files representing the transformations that the programmer 
-       was wanting the compiler to use where the latter stuff is generated via an interactive session
+<p>anyway, my idea is that maybe there could be the programmer-visible code and some other files representing the transformations that the programmer 
+       was wanting the compiler to use where the latter stuff is generated via an interactive session</p>
 
-Yeah. I'm not sure how well this would work when you want to go and change the code, but I guess you could have the compiler tell you   
-       what transforms stopped firing.
+<p>Yeah. I'm not sure how well this would work when you want to go and change the code, but I guess you could have the compiler tell you   
+       what transforms stopped firing.</p>
 
-no, even better than that... when you compile, any time something has changed you get a chance to interact with the compiler to tell it    
-       how you want the new parts to be treated
+<p>no, even better than that... when you compile, any time something has changed you get a chance to interact with the compiler to tell it    
+       how you want the new parts to be treated</p>
 
-and of course you could also force it
+<p>and of course you could also force it</p>
 
-but anyway, i think the interactivity would be a cool way to not only have fine-grained control over optimizations, but also have a way for the    
+<p>but anyway, i think the interactivity would be a cool way to not only have fine-grained control over optimizations, but also have a way for the    
        compiler to *remind* you of potentially useful transformations. currently we have to do all the thinking about rewrite rules ourselves without     
-       even getting to see the various stages of optimizations
+       even getting to see the various stages of optimizations</p>
 
-and of course we are also limited to basically just things like rewrite rules. this might open doors to other kinds of transformations, maybe      
-       safer or more general
+<p>and of course we are also limited to basically just things like rewrite rules. this might open doors to other kinds of transformations, maybe      
+       safer or more general</p>
 
-this of course would cater to the kinds of people that like or need to superoptimize, but it could probably be made to work with more typical      
-       workflows somehow
+<p>this of course would cater to the kinds of people that like or need to superoptimize, but it could probably be made to work with more typical      
+       workflows somehow</p>

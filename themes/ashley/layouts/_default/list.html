@@ -7,12 +7,12 @@
   {{ $paginator := .Paginate .Pages }}
   {{ range $paginator.Pages }}
   <article class="post">
-    <h2><a class="post-title" href="{{ .Permalink }}">{{ .Title }}</a> <abbr class="small postDate" title="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</abbr></h2>
+    <h2><a class="post-title" href="{{ .RelPermalink }}">{{ .Title }}</a> <abbr class="small postDate" title="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</abbr></h2>
     {{ if .Summary }}
     <div class="summary">
       {{ .Summary }}
       {{ if .Truncated }}
-      <p><a href="{{ .Permalink }}">Read more...</a></p>
+      <p><a href="{{ .RelPermalink }}">Read more...</a></p>
       {{ end }}
     </div>
     {{ end }}
