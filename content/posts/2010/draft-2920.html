@@ -1,0 +1,37 @@
+---
+title: "X tips for Cygwin"
+date: 2010-09-05 21:31:25
+slug: 
+draft: true
+categories: [Miscellaneous]
+---
+
+Here are a list of tips for setting up a Windows build server that integrates with an existing Unix environment using a combination of MinGW and Cygwin (and how to prevent yourself from mixing the two up!)
+
+1. *Get remote desktop functionality.* One notable thing Cygwin will not give you is a way to interact with the Windows graphical user interface, which you will invariably want to do with certain tasks (like installing software). If you happen to have a Professional (or better) copy of Windows, you don’t even have to download any extra software: you can use the built-in *Windows Remote Services*, which is extremely well integrated with the platform (and performs much more smoothly than I remember TightVNC doing.) Just go to *System Properties > Remote > Remote Desktop.*
+
+2. *Get the ability to SSH in.* SSH is the lingua franca of remote computing in the Linux world, and as a command line user I want most of time to be spent in a Unix shell on my usual terminal. However, 
+
+configure ssh
+
+cyglsa-config
+
+ssh-host-config
+
+replicate user account information
+
+turn off Windows Firewall (or poke a hole for port 22) and Windows Defender
+
+bashrc make control-arrow work
+
+setup TEMP/TMP/TMPDIR to explicitly point to /tmp
+
+careful about tty versus notty, prevailing advice incorrect
+
+set TERM properly
+
+Git and SSH don't work http://www.cygwin.com/ml/cygwin/2010-01/msg00348.html
+
+allow for clean-room MingW development without cygwin
+
+open question: cannot get terminal info problem

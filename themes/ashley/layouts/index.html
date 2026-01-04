@@ -1,0 +1,23 @@
+{{ define "main" }}
+<section class="posts">
+  {{ $paginator := .Paginate (where .Site.RegularPages "Section" "posts") }}
+  {{ range $paginator.Pages }}
+  <article class="post">
+    <h2><a class="post-title" href="{{ .Permalink }}">{{ .Title }}</a></h2>
+    <abbr class="small postDate" title="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</abbr>
+    {{ .Content }}
+  </article>
+  {{ end }}
+
+  {{ if gt $paginator.TotalPages 1 }}
+  <div class="pagination p">
+    {{ if $paginator.HasPrev }}
+    <span class="previous"><a href="{{ $paginator.Prev.URL }}">&laquo; Newer Posts</a></span>
+    {{ end }}
+    {{ if $paginator.HasNext }}
+    <span class="next"><a href="{{ $paginator.Next.URL }}">Older Posts &raquo;</a></span>
+    {{ end }}
+  </div>
+  {{ end }}
+</section>
+{{ end }}

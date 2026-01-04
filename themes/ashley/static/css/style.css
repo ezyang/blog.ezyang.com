@@ -1,0 +1,455 @@
+/*
+Theme Name: Ashley
+Theme URI:
+Description:
+Version: 1.0
+Author: Edward Z. Yang, Brent Jackson
+Author URI: http://ezyang.com
+Tags: readable, responsive
+
+*/
+
+article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{display:block}audio,canvas,video{display:inline-block}audio:not([controls]){display:none;height:0}[hidden]{display:none}body,h1,h2,h3,h4,h5,h6,p,ul,ol,dl{margin:0;padding:0}a:focus{outline:thin dotted}a:active,a:hover{outline:0}b,strong{font-weight:bold}dfn{font-style:italic}hr{-moz-box-sizing:content-box;box-sizing:content-box;height:0}mark{background:#ff0;color:#000}code,kbd,pre,samp{font-family:'Ubuntu Mono', monospace, serif;font-size:1em}q{quotes:"\201C" "\201D" "\2018" "\2019"}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sup{top:-0.5em}sub{bottom:-0.25em}img{border:0}svg:not(:root){overflow:hidden}figure{margin:0}fieldset{border:1px solid #c0c0c0;margin:0 2px;padding:0.35em 0.625em 0.75em}legend{border:0;padding:0}button,input,select,textarea{font-family:inherit;font-size:100%;margin:0}button,input{line-height:normal}button,select{text-transform:none}button,html input[type="button"],input[type="reset"],input[type="submit"]{-webkit-appearance:button;cursor:pointer}button[disabled],html input[disabled]{cursor:default}input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0}input[type="search"]{-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box}input[type="search"]::-webkit-search-cancel-button,input[type="search"]::-webkit-search-decoration{-webkit-appearance:none}button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}textarea{overflow:auto;vertical-align:top}table{border-collapse:collapse;border-spacing:0}
+
+body {
+  color: #444;
+  background: #fff;
+  /* script=all is a hack to force remote load. See
+   * http://stackoverflow.com/questions/40019408/force-chrome-to-use-external-font-in-css
+   * If this stops working, it's probably because Google renamed their
+   * "force remote" name.
+   *  */
+  font-family: 'Gentium Book Basic script=all rev=2', Georgia, serif;
+  font-size: 100%;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+
+h1, h2, .h1, .h2 {
+  font-weight: 400;
+  line-height: 1.25;
+  margin-top: .5em;
+}
+
+h1, .h1 {
+  font-size: 48px;
+}
+
+h2, .h2 {
+  font-size: 30px;
+}
+
+.archiveTitle {
+  text-transform: uppercase;
+  text-align: center;
+  margin-top: 1em;
+}
+
+h3, .h3 {
+  font-size: 20px;
+  font-weight: normal;
+  text-decoration: underline;
+  margin-top: 2em;
+  margin-bottom: -0.6em;
+}
+
+h4 {
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 1.5em;
+  margin-bottom: -1.3em;
+}
+
+h1+h2 { margin-top: 0; }
+
+p, .p, ul, ol, blockquote, pre, textarea {
+  font-size: 18px;
+  clear: both;
+}
+
+small, .small {
+  font-size: 14px;
+}
+
+strong, .strong {
+  font-weight: 700;
+}
+
+p, ul, ol { margin-top: 1em; }
+
+      @media screen and (min-width: 480px) {
+        h1, .h1 { font-size: 60px; }
+        h2, .h2 { font-size: 32px; }
+        h3, .h3 { font-size: 22px; }
+        p, .p, ul, ol, blockquote, pre, textarea { font-size: 20px;}
+        small, .small { font-size: 16px;}
+      }
+
+      @media screen and (min-width: 640px) {
+        h1, .h1 { font-size: 80px; }
+        h2, .h2 { font-size: 40px; }
+        h3, .h3 { font-size: 24px; }
+      }
+
+
+.wrap {
+  width: 90%;
+  padding: 0 5%;
+  max-width: 48em;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+article {
+  margin-top: 4em;
+}
+
+.simple li {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+a {
+  color: #09b;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+header {
+  width: 90%;
+  padding: 2em 5% 0;
+  max-width: 48em;
+  margin: 0 auto;
+  overflow: hidden;
+  text-align: center;
+}
+
+.logo {
+  float: left;
+  margin-right: 1em;
+}
+
+header h1, header p {
+  margin: 0;
+}
+
+header a {
+  color: #1079AC;
+}
+
+a.post-title {
+  color: #444;
+}
+
+.entry-title a {
+  color: #444;
+}
+
+a.post-title:hover {
+  text-decoration: none;
+  color: #09b;
+}
+
+header a:hover {
+  text-decoration: none;
+}
+
+.post img,
+.photoset,
+.photoset img,
+.photoset_row {
+  max-width: 100%;
+}
+
+.post iframe, .video object {
+  width: 100%;
+  max-width: 100%;
+}
+
+.post blockquote {
+  padding-left: 1em;
+  border-left: 1px solid #ddd;
+}
+
+.post ul, .post ol {
+  margin-left: 2em;
+}
+
+.post footer ul, .post footer ol {
+  margin: 0;
+}
+
+.quote blockquote {
+  padding: 0;
+  border: none;
+  font-style: italic;
+}
+
+.quote .source {
+  text-align: right;
+}
+
+.post footer {
+  padding: 0;
+  margin-top: 1em;
+  color: #aaa;
+  font-style: italic;
+}
+
+.post footer a {
+  color: #aaa;
+}
+
+.post footer a:hover {
+  color: #999;
+}
+
+.post footer .source {
+  float: right;
+  margin-right: 0;
+}
+
+.post footer ul li {
+  display: inline-block;
+  margin-right: 1em;
+}
+
+.tags {
+  margin-top: 1em;
+}
+
+.pagination {
+  margin-top: 4em;
+  text-align: center;
+  line-height: 3em;
+  overflow: hidden;
+}
+
+.pagination a {
+  display: block;
+  height: 3em;
+  padding: 0 1em;
+  border-radius: 0.25em;
+}
+
+.pagination a:hover {
+  background: #eee;
+  text-decoration: none;
+}
+
+.pagination .previous {
+  float: left;
+}
+
+.pagination .next {
+  float: right;
+}
+
+
+footer.wrap {
+  padding-top: 2em;
+  padding-bottom: 2em;
+}
+
+ul.pages {
+  list-style: none;
+  margin-top: 0;
+}
+
+ul.pages li {
+  display: inline-block;
+  margin-right: 1em;
+}
+
+ul.pages li a {
+  display: block;
+}
+
+ul.pages li a:hover {
+  text-decoration: underline;
+}
+
+
+/* Permalink Notes */
+
+aside.notes {
+  margin-top: 4em;
+}
+
+ol.notes {
+  list-style: none;
+  margin-top: 1em;
+  border: 1px solid #ddd;
+  border-radius: 0.25em;
+}
+
+ol.notes, ol.notes a {
+  color: #aaa;
+}
+
+li.note {
+  display: block;
+  line-height: 2em;
+  padding: 0.5em 1em;
+  border-bottom: 1px solid #ddd;
+}
+
+.notes .action a {
+  color: #444;
+}
+
+.action {
+  display: block;
+  margin-left: 3em;
+}
+
+.notes blockquote {
+  line-height: 1.5;
+  margin-left: 3em;
+}
+
+abbr.published {
+  border:none;
+}
+
+abbr.small {
+  color: #aaa;
+}
+
+.commentlist {
+  list-style: none;
+}
+
+.commentlist li:last-child {
+  border: none;
+}
+
+.comment, .pingback {
+  border-bottom: 1px solid #ddd;
+  padding-top: 1.5em;
+  padding-bottom: 1.5em;
+}
+
+.commentlist li:first-child {
+  padding-top: 0.5em;
+}
+
+.avatar {
+  display: block;
+  float: left;
+  width: 52px;
+  height: 52px;
+  margin-right: 1em;
+  border-radius: 0.25em;
+}
+
+.comment-body {
+}
+
+.comment-author {
+}
+
+.comment-meta {
+  font-style: italic;
+  font-size: 0.8em;
+  line-height: 1em;
+}
+
+.comment-meta a {
+  color: #aaa;
+}
+
+.reply {
+  text-align: right;
+}
+
+.reply a {
+  color: #AAA;
+  font-size: 0.8em;
+  font-style: italic;
+}
+
+textarea {
+  width: 100%;
+}
+
+legend {
+  position: relative;
+  display: block;
+  font-size: 1.4em;
+  text-align: left;
+  margin: 0;
+  padding: 0 0 4px 0;
+}
+
+#cancel-comment-reply { float: right }
+
+input[type="submit"] { margin-top: 5px; }
+
+#comments { margin-top: 5em; }
+
+.bottom { text-align: center; }
+
+.postDate { display: block; text-align: left; margin-bottom: 0; }
+.postDate + h2 { margin-top: 0.2em; }
+
+/* hr { border:0; border-top: 1px solid #CCC; margin: 1em 0; } */
+hr {
+    border: 0;
+    background: url(/images/ornament.png) no-repeat center;
+    height: 40px;
+    margin: 1em 0;
+}
+
+pre {
+    margin-left: 3em;
+}
+
+.inner-image img {position: relative; left:-50%; margin: 1.5em 0; }
+.outer-image {width: 80%; margin: 0 auto; overflow: visible; }
+.inner-image {display: inline-block; position:relative; right: -50%;float: left;}
+
+.mahjong {margin-left:10%}
+.mahjong .outer-image {width: 100%;}
+.mahjong .inner-image {right:inherit;}
+
+.center{
+  text-align: center;
+}
+
+.left{
+  text-align: left;
+}
+
+.container{
+  margin-bottom: 1.7em;
+}
+
+.subscribe{
+  font-style: italic;
+  font-size: 1.4em;
+}
+
+.subscribe a{
+  text-decoration: underline;
+}
+
+.blank {
+    display: none;
+}
+
+.single .blank {
+    display: block;
+    margin-top: 25em;
+    margin-bottom: 25em;
+    text-align: center;
+}
+
+td, table, th { border:0; }
+table { margin-top: 1em; }
+
+.pages { text-transform: lowercase; }

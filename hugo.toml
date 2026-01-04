@@ -1,0 +1,35 @@
+# Hugo Configuration for ezyang's blog
+baseURL = 'https://blog.ezyang.com/'
+languageCode = 'en-us'
+title = "ezyang's blog"
+theme = 'ashley'
+
+# Match WordPress permalink structure: /%year%/%monthnum%/%postname%/
+[permalinks]
+  posts = '/:year/:month/:slug/'
+
+[params]
+  description = "the arc of software bends towards understanding"
+  author = "Edward Z. Yang"
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true  # Allow raw HTML for legacy content
+  [markup.highlight]
+    style = 'monokai'
+    lineNos = false
+    codeFences = true
+
+# RSS feed
+[outputs]
+  home = ['HTML', 'RSS']
+  section = ['HTML', 'RSS']
+
+[sitemap]
+  changefreq = 'weekly'
+  priority = 0.5
+
+# Pagination
+[pagination]
+  pagerSize = 10

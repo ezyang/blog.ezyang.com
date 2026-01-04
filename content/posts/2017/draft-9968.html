@@ -1,0 +1,15 @@
+---
+title: "Another look at pattern matching in C++"
+date: 2017-06-24 13:36:15
+slug: 
+draft: true
+categories: [Miscellaneous]
+---
+
+What is pattern matching? To a Haskeller, "we know it when we see it," but actually, it is a number of ideas that have been put together.  The core idea is this: if you have a *closed* data type, it is possible to do exhaustive case analysis whenever you want to operate on it... and the compiler can check your work too. (You can't do this for an open interface, as is the default mode of operation in an object-oriented language.) But pattern matching as formulated in Haskell also offers a number of further niceties:
+
+* You may want a way of conveniently binding local variables corresponding to entries inside the data type in question; this is applicable even when the data type has only one variant. (``f (x, y) = x + y`` as opposed to ``f p = fst p + snd p``)
+
+* You might not only one to do case analysis on one variable, but multiple variables at the same time. (``f Nothing Nothing = True``).
+
+* Once you have successfully does case analysis on the outer data type, you may want to further do case analysis on an inner type. (``f (Just 4) = 23``)

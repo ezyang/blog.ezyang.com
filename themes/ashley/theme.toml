@@ -1,0 +1,13 @@
+# Theme metadata
+name = "Ashley"
+license = "MIT"
+licenselink = "https://github.com/jxnblk/ashley"
+description = "A minimal, readable Hugo theme based on Ashley by Brent Jackson"
+
+[author]
+  name = "Edward Z. Yang"
+  homepage = "https://ezyang.com"
+
+[original]
+  name = "Brent Jackson"
+  homepage = "http://jxnblk.com/ashley/"

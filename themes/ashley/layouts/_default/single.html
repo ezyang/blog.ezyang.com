@@ -1,0 +1,32 @@
+{{ define "main" }}
+<section class="posts">
+  <article class="post">
+    <h2>{{ .Title }}</h2>
+    <abbr class="small postDate" title="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</abbr>
+    {{ .Content }}
+    <footer>
+      {{ with .Params.categories }}
+      <ul class="small">
+        <li>{{ range $i, $cat := . }}{{ if $i }}, {{ end }}<a href="{{ (print "/categories/" (. | urlize) "/") | relURL }}">{{ . }}</a>{{ end }}</li>
+      </ul>
+      {{ end }}
+      {{ with .Params.tags }}
+      <ul class="tags">
+        {{ range . }}<li><a href="{{ (print "/tags/" (. | urlize) "/") | relURL }}">{{ . }}</a></li>{{ end }}
+      </ul>
+      {{ end }}
+    </footer>
+  </article>
+
+  {{- partial "comments.html" . -}}
+
+  <div class="pagination p">
+    {{ with .PrevInSection }}
+    <span class="previous"><a href="{{ .Permalink }}">&laquo; Previous Post</a></span>
+    {{ end }}
+    {{ with .NextInSection }}
+    <span class="next"><a href="{{ .Permalink }}">Next Post &raquo;</a></span>
+    {{ end }}
+  </div>
+</section>
+{{ end }}

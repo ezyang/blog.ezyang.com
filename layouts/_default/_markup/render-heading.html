@@ -1,0 +1,7 @@
+{{- /* Shift heading levels: # becomes h3, ## becomes h4, etc. */ -}}
+{{- /* Post title is h2, so content headings start at h3 */ -}}
+{{- $level := add .Level 2 -}}
+{{- if gt $level 6 }}{{ $level = 6 }}{{ end -}}
+<h{{ $level }} id="{{ .Anchor | safeURL }}"{{ with .Attributes }} {{ range $k, $v := . }} {{ $k }}="{{ $v }}"{{ end }}{{ end }}>
+  {{- .Text | safeHTML -}}
+</h{{ $level }}>

@@ -1,0 +1,33 @@
+{{ define "main" }}
+<section class="posts">
+  {{ if .Title }}
+  <h2 class="archiveTitle">{{ .Title }}</h2>
+  {{ end }}
+
+  {{ $paginator := .Paginate .Pages }}
+  {{ range $paginator.Pages }}
+  <article class="post">
+    <h2><a class="post-title" href="{{ .Permalink }}">{{ .Title }}</a> <abbr class="small postDate" title="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</abbr></h2>
+    {{ if .Summary }}
+    <div class="summary">
+      {{ .Summary }}
+      {{ if .Truncated }}
+      <p><a href="{{ .Permalink }}">Read more...</a></p>
+      {{ end }}
+    </div>
+    {{ end }}
+  </article>
+  {{ end }}
+
+  {{ if gt $paginator.TotalPages 1 }}
+  <div class="pagination p">
+    {{ if $paginator.HasPrev }}
+    <span class="previous"><a href="{{ $paginator.Prev.URL }}">&laquo; Newer Posts</a></span>
+    {{ end }}
+    {{ if $paginator.HasNext }}
+    <span class="next"><a href="{{ $paginator.Next.URL }}">Older Posts &raquo;</a></span>
+    {{ end }}
+  </div>
+  {{ end }}
+</section>
+{{ end }}

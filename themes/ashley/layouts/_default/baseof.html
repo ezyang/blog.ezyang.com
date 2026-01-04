@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} : {{ .Site.Title }}{{ end }}</title>
+
+  <link rel="stylesheet" href="/css/style.css" type="text/css" media="screen">
+  <link href="https://fonts.googleapis.com/css?family=Gentium+Book+Basic" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu+Mono" rel="stylesheet" type="text/css">
+
+  <link rel="alternate" type="application/rss+xml" title="{{ .Site.Title }} RSS Feed" href="{{ .Site.BaseURL }}index.xml">
+
+  {{- partial "math.html" . -}}
+  {{- partial "syntax-highlight.html" . -}}
+
+  {{ hugo.Generator }}
+</head>
+
+<body class="{{ if .IsPage }}single{{ end }}">
+
+<header>
+  <h1 class="vcard author"><a href="/" title="Home">{{ .Site.Title }}</a></h1>
+  <p>
+    {{ .Site.Params.description }}
+    <ul class="pages">
+      <li><a href="/posts/">Archive</a></li>
+      <li><a href="/index.xml">Subscribe</a></li>
+    </ul>
+  </p>
+</header>
+
+<div class="content wrap">
+  {{ block "main" . }}{{ end }}
+</div>
+
+<footer class="bottom small wrap">
+  <p class="small">&copy; {{ .Site.Title }}. Powered by <a href="https://gohugo.io/">Hugo</a>, theme based off of <a href="http://jxnblk.com/ashley/">Ashley</a>.</p>
+</footer>
+
+</body>
+</html>

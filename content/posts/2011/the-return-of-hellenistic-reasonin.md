@@ -1,0 +1,77 @@
+---
+title: "The return of Hellenistic reasoning"
+date: 2011-03-21 09:00:42
+slug: the-return-of-hellenistic-reasonin
+categories: [Computer Science, Math, Philosophy]
+math: true
+comments:
+    - id: 1944
+      author: Thomas
+      date: "2011-03-21 10:41:55"
+      content: |
+        There's one problem with formalism (among others) that stands out, especially when trying to communicate your idea (possibly to people with less mathematical inclination or training): People who are relatively new to a given formalism and enjoy it very much because it's elegant or let's them solve new problems (in a more succint way, closer to their intuition, etc.) tend to overdo it. Many things can be stated in natural language (or the mathematical equivalent thereof), i.e. without using symbols or diagrams. I've seen that (in myself and others) with automata, UML, symbolic logic, algebra, calculus, etc. So in a sense for me the real question is not which language (diagrammatic, symbolic) or mode of reasoning (calculation by term rewriting, diagram chasing, giving a construction, e.g. using a ruler and a compass, etc.) one uses, but if one should perhaps take a step back and examine the problem from a less formal angle to discover which parts of it really benefit from some kind of rigorous formal  treatment and which parts don't. 
+        
+        Additionally, a problem that I feel is quite specific to diagrams is that you have to give them meaning, and that in itself can be non-trivial. In category theory one can talk about the category of diagrams, and in a sense you get into the sort of meta^n reasoning that is also typical of most non-trivial applications of UML (which is surely in all its "glory" much to complicated for the average software engineer or programmer).
+        
+        And regarding interactive systems for error recovery: Have you used the facilities of a good Common Lisp implementation yet? They are quite elegant for what they do.
+    - id: 1945
+      author: Edward Z. Yang
+      date: "2011-03-21 13:42:19"
+      content: |
+        I don't disagree that the question of where formalism should be applied is definitely an important question, since formal methods are expensive. But I think even informal reasoning is backed by a formalism in the background. And the harder the thing you're trying to explain, the more muddy the waters, the greater the benefits of a little bit of rigor.
+        
+        Actually communicating what diagrams mean is indeed difficult; there's certainly a temptation (I've found) to give examples but not actually say what everything mean, which is nice and all but means your audience doesn't actually know how to use the formalism. There's still training necessary (though hopefully less!)
+        
+        On your point about meta-reasoning, I'm not sure, since theoreticians are perfectly happy to play around with abstract concepts that don't seem to have any particular bearing with anything practical. This is opposed to the complexity of UML, which is ostensibly to allow you to deal with a wider range of practical situations.
+        
+        I've not looked at the facilities of a good Common Lisp implementation. Do you have any particular recommendations?
+    - id: 1947
+      author: James Cook
+      date: "2011-03-22 09:38:32"
+      content: |
+        I would argue that the thing most mathematically-disinclined people shudder about is not the symbolism but the formalism.  As you remarked in another comment, formal methods are expensive.  Many people either can't justify the expense (because they aren't going to use the formalism often enough for it to be more of a help than a frustration) or just "can't afford it" - they can't or don't feel that they can get over the initial hurdle.
+        
+        A question along these lines comes to my mind.  What is it that a visual formalism offers that a symbolic formalism does not?  Does a good visual formalism actually lower the barrier to understanding the formalism?  Or does the principal benefit perhaps lie in the fact that it has enough resemblance to common modes of informal discussion that someone without any understanding of the formalism can still gain from it an intuitive sense of what is being said?
+    - id: 1948
+      author: Edward Z. Yang
+      date: "2011-03-22 10:04:47"
+      content: |
+        I see it in a few ways.
+        
+        There are many formalisms in the world, and I would hazard that even the most mathematically disinclined person is familiar with one or two formalisms. They may not be familiar with a Hilbert system but will know basic syllogistic reasoning. In this sense, I think translation mechanisms between formalisms are useful, because they allow you to put some foreign language into your native tongue, in hope that your facility with that formalism outweighs any other infelicities. I personally find this sort of translation a critical bootstrapping step when I learn new maths.
+        
+        Similarly, all other things being the same, I think the appeal of a different type of formalism will depend on what kind of learner a person is. Some people are visual learners, so those sorts of manipulations will just come more naturally. Even if it's no easier, the lack of symbols can make it more approachable and friendly. I think similarity to informal discussion has something to do with this as well.
+    - id: 1950
+      author: Danno
+      date: "2011-03-23 02:12:11"
+      content: "Automated testing is, in a sense, interactive reasoning about the properties of a system, sort of (and I use it in more of a joking way) the cocategory of debuggers. Particularly with the \"Behavioral\" test description conventions, you say, \"I'm imagining a system where these properties hold\", then go about writing the program to make sure they do."
+    - id: 1955
+      author: Thomas
+      date: "2011-03-23 09:38:45"
+      content: |
+        I don't say that meta-reasoning is a bad thing, only that it can get complicated (maybe sometimes unecessarily so, at least if you have applications in mind (which in turn do not need to be practical)). We need meta-languages, set theory and type theory come to mind, to give meaning to mathematical constructs. Those two, especially set theory can be depicted in a graphical manner for many purposes, yet the pictures need not be precise, but rather hint at the underlying idea. Having pictures that illustrate concepts and make clear some points of it are probably preferable to those that have a formal one-to-one correspondence with symbols for people who are not mathematically inclined (or don't have the time to make precise all their diagrams). I was once scolded for suggesting to use UML because it is a standard that people can understand (even if many don't, and I would put myself in the latter category). Instead I should rather make up my own ad-hoc diagrams. Another instance was that I created a diagrammatic language for describing a certain kind of system, but the mathematical (symbolic) description including certain properties was merely tolerated rather than cherised as the necessary accompaniment for such a visual language (that was meant to be executable by a computer). I remain skeptical of the real, practical value of diagrammatic languages. As a human activity, a form of communication I don't quite get them.
+        
+        If you want to try out Common Lisp, you should be well off with the SBCL compiler and the SLIME mode for Emacs. I guess there are two good reasons why Lisps have good error recovery facilities: (1) They encourage interactive, rapid development; and (2) because the system is not usually statically typed you can run into errors that would have been prevented otherwise. It's certainly a very different style of functional (and imperative as well as object-oriented if you want to) programming than Haskell or ML.
+---
+
+I recently attended a talk which [discussed extending proof assistants with diagrammatic reasoning support](http://talks.cam.ac.uk/talk/index/29335) , helping to break the hegemony of symbolic systems that is predominant in this field. While the work is certainly novel in some respects, I can't also but help think that we've come back full circle to the Ancient Greeks, who were big fans of geometry, and its correspondingly visual form of reasoning. The thought came up again while I was reading a mathematics text and marveling at the multiple methods of presenting a single concept. In this essay, I'd like to look at this return to older, more "intuitive" forms of reasoning: I've called it "Hellenistic reasoning" because geometry and the Socratic method nicely sum up visual and interactive reasoning that I'd like to discuss. I argue that this resurgence is a good thing, and that though these forms of reasoning may not be as powerful or general as symbolic reasoning, they will be critical to the application and communication of abstract mathematical results.
+
+Symbolic reasoning involves syntactic manipulation of abstract symbols on a page; as Knuth puts it, it's the sort of thing we do when we have a symbol that "appears in both the upper and the lower position, and we wish to have it appear in one place rather than two". It's a rather unnatural and mechanical mode of reasoning that most people have to be trained to do, but it is certainly one of the most popular and effective modes of reasoning. While I suspect that the deep insights that lead to new mathematical discoveries lie outside this realm, symbolic reasoning derives its power from being a common language which can be used as a communication channel to share these insights. Unlike natural language, it's compact, precise and easy to write.
+
+While symbols are an imperfect but serviceable basis for communication among the mathematically inclined, they strike fear and terror in the hearts of everyone else. A conference room of mathematicians will sigh in relief when the slide of axioms and equations shows up; a conference room of systems researchers will zone out when the same slide rolls around. Is this a sign to just give up and start using UML? My answer should be obvious: No! The benefits of a precise formalism are too great to give up. (What are those benefits? Unfortunately, that's out of the scope of this particular essay.) Can we toss out the symbols but not the formalism? Maybe...
+
+First on the list is visual reasoning. [If you can find one for your problem](http://mathoverflow.net/questions/8846/proofs-without-words), they can be quite elegant. Unfortunately, the key word is *if*: proofs with visual equivalents are the exception, not the rule. But there are some encouraging theorems and other efforts that can show a class of statements can be "drawn as pictures on paper." Here are some examples:
+
+- *Theorem.* Let \$\mathcal{H}\$ be the algebra of all open subsets (for the non-topologically inclined, you can think of this as sets minus their "edges": the interior (Int) of all subsets) of the set \$\mathbb{R}\$ or \$\mathbb{R}^2\$ (or any Cartesian product of the above). Then \$\mathcal{H} \vdash p\$ if and only if \$p\$ is intuitionistically valid. What this means is that it is *always* possible to give a counterexample for an invalid formula over the real line or Euclidean plane. One example is Peirce's law \$((p \rightarrow q) \rightarrow p) \rightarrow p\$: the counter-example on the real line is as such: let the valuation of p be \$\mathbb{R} - \lbrace 0\rbrace\$ and the valuation of q be \$\emptyset\$. The recipe is to repeatedly apply our rules for combining these subsets, and the see if the result covers all of the real line (if it doesn't, it's not intuitionistically valid). The rule for \$A \rightarrow B\$ is \$\mathrm{Int}(-A \cup B)\$, so we find that \$p \rightarrow q\$ is \$\emptyset\$ and \$(p \rightarrow q) \rightarrow q\$ is \$\mathbb{R}\$, and the full expression is \$\mathbb{R} - \lbrace 0\rbrace\$, just one point shy of the full number line.
+- von Neumann famously remarked: "I do not believe absolutely in Hilbert space no more." He was referring to the growing pains of the Hilbert Space formalism for quantum mechanics. If you've ever played around with tensor products and quibts, you'll know that it takes a lot of work to show even the simplest calculations. The quantum picturalism movement attempts to recast quantum computation in terms of a graphical language, with the goal of making simple theorems, well, simple. No word yet if they will actually be successful, but it's a very interesting vein of investigation.
+- Commutative diagrams in category theory make proving properties a cinch: one simply needs to understand what it is that is being proved and draw the appropriate diagram! One particularly elegant proof of the Church-Rosser theorem (confluence of the untyped lambda calculus) uses a diagram chase after addressing one small technical detail.
+
+We proceed on to interactive reasoning. These are methods that involve dialogues and games: they find their roots in game theory, but have since then popped up in a variety of contexts.
+
+- The act of creating a construction for a formula can be thought of as a dialogue between a prover (who claims to know how to produce the construction), and a skeptic (who claims the construction doesn't exist.) We can bundle up all of the information content of a proof by specifying a "strategy" for the prover, but the little bit of specificity that a particular instance of the game can be exceedingly enlightening. They also highlight various "interesting" logical twists that may not necessarily be obvious from applying inference rules: *ex falso sequitur quodlibet* corresponds to tricking the skeptic into providing contradictory information and classical logic permits *Catch-22 tricks* (see section 6.5 of *Lectures on the Curry-Howard Isomorphism*).
+- Game semantics gives meaning to program execution in terms of games. Some interesting results include *increased* expressiveness over the more traditional denotational semantics (game semantics is able to "see" if a function requests the value of one of its argument), but in my opinion this is perhaps the most natural way to talk about laziness: when a thunk is forced I am asking someone for an answer; if I never force the thunk then this conversation never happens.
+- In a much more mundane sense, traditional debuggers are a interactive reasoning *system*: the programmer converses with the program, asks questions and gets answers.
+
+(It is that last sense that makes wonder if interactional reasoning is something that could become very widely used among software engineers: if you want to reason about the correctness of a system as a whole using a game, you still need to prove facts about strategies in general, but in an adversarial context (for example, compiler error) it could be very simple and useful. This is idle speculation: interactive error systems have been built before, e.g. LaTeX, and unfortunately, they're not very good. One wonders why.)
+
+I could end this essay with an admonition to "draw pictures and describe interactions", but that would be very silly, since people do that already. What I would like to suggest is that there is rich theory that formalizes these two very informal activities, and this formalism is a good thing, because it makes our tools more precise, and thereby more effective.

@@ -1,0 +1,18 @@
+---
+title: "schematics"
+date: 2014-09-03 11:31:00
+slug: 
+draft: true
+categories: [Miscellaneous]
+---
+
+Schematically, we can represent this package as follows:
+
+ IMAGE
+
+Here, the ports on the top of the box indicate the modules that are being exported by the package bytestring (we've just shown Data.ByteString and Data.ByteString.Lazy; of course, the modules in ``other-modules`` are ). Inside the package, there are the build dependencies of the package. They expose a number of modules which are available for bytestring to use (but not available from the bytestring package itself). We've given these packages unspecified version numbers: when Cabal runs dependency resolution, it picks concrete instantiations of these packages (enforcing that for any given package name, the same instance is picked; this way, we can rely on the types being the same even if a package shows up multiple times).
+
+
+Schematically, it would look like this:
+
+ IMAGE

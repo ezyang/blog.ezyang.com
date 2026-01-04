@@ -1,0 +1,53 @@
+{{/* Static comments display - comments are stored in front matter */}}
+{{ with .Params.comments }}
+<section id="comments">
+  <h3>{{ len . }} Comment{{ if ne (len .) 1 }}s{{ end }}</h3>
+  <ol class="commentlist">
+    {{ range . }}
+    <li class="comment" id="comment-{{ .id }}">
+      {{ if .avatar }}
+      <img class="avatar" src="{{ .avatar }}" alt="{{ .author }}">
+      {{ end }}
+      <div class="comment-body">
+        <div class="comment-author">
+          {{ if .url }}
+          <a href="{{ .url }}" rel="nofollow">{{ .author }}</a>
+          {{ else }}
+          <strong>{{ .author }}</strong>
+          {{ end }}
+        </div>
+        <div class="comment-meta">
+          <time datetime="{{ .date }}">{{ .date }}</time>
+        </div>
+        <div class="comment-content">
+          {{ .content | markdownify }}
+        </div>
+      </div>
+      {{ with .replies }}
+      <ol class="commentlist">
+        {{ range . }}
+        <li class="comment" id="comment-{{ .id }}">
+          <div class="comment-body">
+            <div class="comment-author">
+              {{ if .url }}
+              <a href="{{ .url }}" rel="nofollow">{{ .author }}</a>
+              {{ else }}
+              <strong>{{ .author }}</strong>
+              {{ end }}
+            </div>
+            <div class="comment-meta">
+              <time datetime="{{ .date }}">{{ .date }}</time>
+            </div>
+            <div class="comment-content">
+              {{ .content | markdownify }}
+            </div>
+          </div>
+        </li>
+        {{ end }}
+      </ol>
+      {{ end }}
+    </li>
+    {{ end }}
+  </ol>
+</section>
+{{ end }}
