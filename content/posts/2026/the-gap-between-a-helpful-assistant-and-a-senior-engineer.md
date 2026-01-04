@@ -61,7 +61,10 @@ engineer" where LLMs can obviously help speed things up.  Or, we can think
 about what it would take for an LLM to be able to act like a Senior Engineer,
 including improvements to the models:
 
-* Perhaps all it takes is a sufficiently long document, explaining what it means to have
+* Perhaps prompting is all you need, and you just need to write enough
+  information about the surrounding context for a project, and once you feed in
+  enough tokens, a smart model can infer the rest of the details you didn't
+  explicitly right down.
 
 
 
