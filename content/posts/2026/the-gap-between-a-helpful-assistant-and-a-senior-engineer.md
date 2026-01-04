@@ -39,21 +39,16 @@ a few questions to clarify the task upfront, but if your coding agent starts
 asking you about "relevant partner teams" and "org-wide priorities for this
 half" you are definitely going to raise an eyebrow.
 
-What does this mean in practice? In particular, as a person whose day job
-involves working on PyTorch, I want to know what exactly should we be doing
-differently in this age of LLMs.  The path of least resistance is to just slot
-LLMs in anywhere in the traditional software development pipeline where they
-substitute only small steps out of a fundamentally human-oriented process.
-But doing this quickly causes a bottleneck on TL reviewer bandwidth, where
-everyone is now able to generate code much more quickly, but LLMs haven't
-really improved the sense making / consensus-building / overall system design
-parts of the process (and arguably, the TLs had always been overloaded, and AI
-coding has only made it worse.)  And the argument above, suggests that without
-the major unlock of continual learning or persistent context, in the short
-term LLMs aren't going to make a dent on this: they can help you brainstorm
-things to think about, they can rubber duck with you, they can investigate the
-codebase; but at the end of the day, the "helpful assistant" frame means that
-a human has to actually operate the thing.
+What does this mean in practice? One of the things I worry the most in my
+day-to-day life working on PyTorch is the current bottleneck on TL reviewer
+bandwidth: TLs have always been overloaded with sense making /
+consensus-building / overall system design parts of software development, and
+AI coding is only making it worse.  And the argument above suggests that
+without the major unlock of continual learning or persistent context, in the
+short term LLMs aren't going to make a dent on this: they can help you
+brainstorm things to think about, they can rubber duck with you, they can
+investigate the codebase; but at the end of the day, the "helpful assistant"
+frame means that a human has to actually operate the thing.
 
 So now we have a fork in the road: we can assume that the human will always be
 setting the context, and look for smaller interventions in the role of "senior
@@ -62,11 +57,21 @@ about what it would take for an LLM to be able to act like a Senior Engineer,
 including improvements to the models:
 
 * Perhaps prompting is all you need, and you just need to write enough
-  information about the surrounding context for a project, and once you feed in
-  enough tokens, a smart model can infer the rest of the details you didn't
+  information about the surrounding context for a project, and once you feed
+  in enough tokens, a smart model can infer the rest of the details you didn't
   explicitly right down.
 
+* Perhaps you can instead prompt a model on *how* to operate agentically to get
+  the context it needs.  This prompt here might be generalizable to multiple contexts.
+  You definitely do want the LLM to be asking lots of questions in this regime!
 
+* Let's say we solve continual learning.  You wouldn't craft the perfect
+  prompt; instead, you'd just drop the model as an "embodied" software
+  developer.  It reads code, talks to people, does projects, and in doing so
+  slowly develops its latent context, in the same way a human engineer does.
+  Building context will often be bottlenecked in the same way humans are: you
+  can't get experience related to pushing a feature to production, until
+  you've actually pushed the feature to production.
 
 P.S. Not good for safety.
 
