@@ -5,7 +5,7 @@ slug: hugo-migration
 categories: [AI Coding]
 ---
 
-This blog has lived on WordPress since it was [initially created](https://blog.ezyang.com/2009/12/iron-blogger/) during a social challenge at MIT to write a blog post a week or pay up with beer.  I remember a very important piece of advice I had been given at that time: don't fuck around with your blog authoring software, just do the minimum viable thing (use Wordpress) and focus on writing posts.
+This blog has lived on WordPress since it was [initially created](https://blog.ezyang.com/2009/12/iron-blogger/) during a social challenge at MIT to write a blog post a week or pay up with beer.  I remember a very important piece of advice I had been given at that time: don't fuck around with your blog authoring software, just do the minimum viable thing (use WordPress) and focus on writing posts.
 
 It's 2026 now, the world is different, and in particular the existence of coding agents means that this particular advice falls flat now: it has never been easier to vibe code your own blog software and be done in an afternoon of token generation.  Similarly, over the years, I had been increasingly unhappy about my WordPress setup (too hard to add images, ancient version of WordPress, Markdown has taken over the world why am I still writing in ReST, I love scripts.mit.edu but I definitely don't want to use it to host serious things).  So I typed this into ChatGPT and Claude and asked it what I should migrate too.
 
