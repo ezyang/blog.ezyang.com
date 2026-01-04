@@ -39,6 +39,37 @@ jobs:
         id: pages
         uses: actions/configure-pages@v5
 
+      - name: Generate year/month archives
+        run: |
+          for dir in content/posts/*/; do
+            year=$(basename "$dir")
+            # Create year index
+            mkdir -p "content/$year"
+            cat > "content/$year/_index.md" << EOF
+          ---
+          title: "$year"
+          layout: archive
+          archiveYear: $year
+          ---
+          EOF
+            # Create month indexes
+            for post in "$dir"*.md "$dir"*.html; do
+              [ -f "$post" ] || continue
+              month=$(grep -m1 "^date:" "$post" | grep -oE '[0-9]{4}-[0-9]{2}' | cut -d- -f2)
+              if [ -n "$month" ]; then
+                mkdir -p "content/$year/$month"
+                [ -f "content/$year/$month/_index.md" ] || cat > "content/$year/$month/_index.md" << EOF
+          ---
+          title: "$year/$month"
+          layout: archive
+          archiveYear: $year
+          archiveMonth: $month
+          ---
+          EOF
+              fi
+            done
+          done
+
       - name: Build with Hugo
         env:
           HUGO_CACHEDIR: ${{ runner.temp }}/hugo_cache
