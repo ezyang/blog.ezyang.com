@@ -203,6 +203,13 @@ header a:hover {
   border-left: 1px solid var(--border);
 }
 
+@media screen and (max-width: 480px) {
+  .post blockquote {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
 .post ul, .post ol {
   margin-left: 2em;
 }
