@@ -1,0 +1,18 @@
+{{- with site.Params.newsletter }}
+  {{- if .enabled }}
+  <section class="newsletter">
+    <div class="newsletter__content">
+      <h3 class="newsletter__title">{{ .title }}</h3>
+      <p class="newsletter__description">{{ .description }}</p>
+      <form class="newsletter__form" action="{{ .action }}" method="post" {{ if .openInNewTab }}target="_blank" rel="noopener"{{ end }}>
+        <label class="newsletter__label" for="newsletter-email">Email address</label>
+        <div class="newsletter__fields">
+          <input id="newsletter-email" name="email" type="email" required placeholder="{{ .placeholder }}" aria-label="Email address">
+          <button type="submit">{{ .cta }}</button>
+        </div>
+      </form>
+      <p class="newsletter__link"><a href="{{ .directLink }}" {{ if .openInNewTab }}target="_blank" rel="noopener"{{ end }}>Prefer a full-page signup?</a></p>
+    </div>
+  </section>
+  {{- end }}
+{{- end }}

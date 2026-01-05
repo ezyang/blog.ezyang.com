@@ -12,6 +12,16 @@ theme = 'ashley'
   description = "the arc of software bends towards understanding"
   author = "Edward Z. Yang"
 
+[params.newsletter]
+  enabled = true
+  title = "Get new posts in your inbox"
+  description = "Join the mailing list for updates from the blog."
+  action = "https://ezyang-blog.kit.com"
+  placeholder = "you@example.com"
+  cta = "Subscribe"
+  directLink = "https://ezyang-blog.kit.com"
+  openInNewTab = true
+
 [markup]
   [markup.goldmark]
     [markup.goldmark.renderer]
