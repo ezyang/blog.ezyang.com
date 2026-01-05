@@ -556,6 +556,22 @@ pre {
   text-decoration: underline;
 }
 
+.subscribe-page .post {
+  margin-bottom: 0;
+}
+
+.subscribe-rss {
+  margin-top: 2.5em;
+  padding: 1.5em;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.subscribe-rss ul {
+  margin-top: 0.75em;
+  margin-left: 1.25em;
+}
+
 .blank {
     display: none;
 }

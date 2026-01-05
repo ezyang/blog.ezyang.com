@@ -9,8 +9,6 @@
   </article>
   {{ end }}
 
-  {{- partial "newsletter.html" . -}}
-
   {{ if gt $paginator.TotalPages 1 }}
   <div class="pagination p">
     {{ if $paginator.HasPrev }}
