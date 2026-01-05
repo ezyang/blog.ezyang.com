@@ -1,0 +1,19 @@
+{{ define "main" }}
+<section class="posts subscribe-page">
+  <article class="post">
+    <h2>{{ .Title }}</h2>
+    <p>Pick the option that works best for you.</p>
+
+    {{- partial "newsletter.html" . -}}
+
+    <div class="subscribe-rss">
+      <h3>Prefer RSS?</h3>
+      <p>You can subscribe with your favorite reader:</p>
+      <ul>
+        <li><a href="{{ .Site.BaseURL }}feed.xml">RSS feed (feed.xml)</a></li>
+        <li><a href="/feed/">WordPress-style feed alias</a></li>
+      </ul>
+    </div>
+  </article>
+</section>
+{{ end }}
