@@ -36,7 +36,7 @@ There are not too many rules.  Take a running example `"abi,aoi->abo"`, we can w
 
 1. If everything is replicated, the output is replicated: `Replicate(), Replicate() -> Replicate()`
 2. If a batch dimension is sharded, the output batch dimension is also sharded: `Shard("a"), Shard("a") -> Shard("a")`
-3. If a free dimension is sharded, any broadcasted input must be replicated: `Shard("b"), Replicate() -> Shard("b")`
+3. If a free dimension is sharded, the output free dimension is sharded, but any broadcasted input must be replicated: `Shard("b"), Replicate() -> Shard("b")`
 4. If a contraction dimension is sharded, we will have a pending reduction: `Shard("i"), Shard("i") -> Partial()`
 
 You can look at [Computation With Sharded Arrays](https://jax-ml.github.io/scaling-book/sharding/#computation-with-sharded-arrays) for a more detailed explanation for each of these cases.
