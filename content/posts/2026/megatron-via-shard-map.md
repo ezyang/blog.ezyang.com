@@ -2,7 +2,7 @@
 title: "Megatron via shard_map"
 date: 2026-01-26T08:34:34-05:00
 slug: "megatron-via-shard-map"
-categories: []
+categories: [PyTorch]
 ---
 
 In [Computing sharding with einsum]({{<relref "computing-sharding-with-einsum.md">}}), we worked an example of Megatron style tensor parallelism where we discover that the ordinary backwards formula for linear results in a pending reduction on `grad_input`, even though the `input` was replicated and no communications happened in forwards.  In Megatron, which is implemented with plain Tensors and manual collectives, you just have to *know* that this reduction is necessary and manually insert it with a custom autograd function.
