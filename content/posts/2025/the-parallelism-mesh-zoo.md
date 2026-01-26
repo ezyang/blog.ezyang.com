@@ -2,7 +2,7 @@
 title: "The Parallelism Mesh Zoo"
 date: 2025-08-30 23:20:01
 slug: the-parallelism-mesh-zoo
-categories: [PyTorch]
+categories: [PyTorch, JAX]
 comments:
     - id: 36128
       author: Neilblaze

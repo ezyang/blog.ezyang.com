@@ -2,7 +2,7 @@
 title: "Learning to love mesh-oriented sharding"
 date: 2025-12-08 00:35:13
 slug: learning-to-love-mesh-oriented-sharding
-categories: [PyTorch]
+categories: [PyTorch, JAX]
 ---
 
 Famously, PyTorch and JAX don't agree on how shardings should be represented: PyTorch takes a mesh-dim oriented view, where for each dimension in your device mesh, you specify what sharding should be applied; JAX takes a tensor-dim oriented view, where for each dimension on your tensor, you say which mesh dimensions (potentially multiple!) shard it. Among my Twitter followers, it is generally agreed that the [JAX formulation is more intuitive](https://x.com/ezyang/status/1960188772554846236) from a user perspective. OK, fine; if you prefer one representation over another, it's easy enough to translate between the two representations (in easy situations, at least!) In this post, I want to talk more about the framework implementation side: what is the better *internal* representation of sharding? I don't claim to have all the answers, but my motivation for writing this post is to help explain where I currently stand and how I evaluate proposals for evolving DTensor and sharding in PyTorch.

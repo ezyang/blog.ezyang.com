@@ -2,7 +2,7 @@
 title: "vmap in Haskell"
 date: 2020-01-29 14:14:34
 slug: vmap-in-haskell
-categories: [Haskell, PyTorch]
+categories: [Haskell, PyTorch, JAX]
 comments:
     - id: 23449
       author: "New top story on Hacker News: Vmap in Haskell &#8211; Latest news"
