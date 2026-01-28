@@ -26,7 +26,7 @@ grad_input  = torch.einsum("bo,oi->bi", grad_output, weight)
 grad_weight = torch.einsum("bi,bo->oi", input, grad_output)
 ```
 
-Intuitively, the reason this works is because reverse-mode AD actually just [transposing the linear function](https://arxiv.org/pdf/2204.10923) defined by our einsum, and transposed matrix multiplies can be implemented by just reading off its shapes.
+Intuitively, the reason this works is because reverse-mode AD actually is just [transposing the linear function](https://arxiv.org/pdf/2204.10923) defined by our einsum, and transposed matrix multiplies can be implemented by just reading off its shapes.
 
 # Einsum sharding
 
