@@ -38,16 +38,13 @@ output: f32[sequence, batch, out_features/tp]@{tp}  # varies over tp dim
 The point of a type system is that you have typing rules that say whether or not an operation is legal between two types, rejecting programs that are ill-typed.  In particular, in jaxpr it's illegal to have an operation like matrix multiply between two tensors with differing VMA: you have to insert a cast to make the VMAs match before you can do the operation.  Actually, JAX will typically insert these casts implicitly for you, but for clarity we're going to insert the cast explicitly here:
 
 ```
-import os
-os.environ["XLA_FLAGS"] = "--xla_force_host_platform_device_count=2"
-
 import jax
 import jax.numpy as jnp
-from jax.sharding import Mesh, PartitionSpec as P
-from jax import shard_map
 
-devices = jax.devices()
-mesh = Mesh(devices, axis_names=("tp",))
+jax.config.update('jax_num_cpu_devices', 2)
+
+jax.set_mesh(jax.make_mesh((2,), ('tp',)))
+
 sequence, batch, in_features, out_features = 4, 2, 8, 16
 
 input = jnp.ones((sequence, batch, in_features))
@@ -55,6 +52,7 @@ input = jnp.ones((sequence, batch, in_features))
 # input spec
 weight = jnp.ones((in_features, out_features))
 
+@jax.shard_map(in_specs=(jax.P(None, None, None), jax.P(None, "tp")), out_specs=jax.P(None, None, "tp"))
 def colwise_linear(input, weight):
     print('input', jax.typeof(input))
     print('weight', jax.typeof(weight))
@@ -64,14 +62,7 @@ def colwise_linear(input, weight):
     print('output', jax.typeof(output))
     return output
 
-sharded_linear = shard_map(
-    colwise_linear,
-    mesh=mesh,
-    in_specs=(P(None, None, None), P(None, "tp")),
-    out_specs=P(None, None, "tp"),
-)
-
-output = sharded_linear(input, weight)
+output = colwise_linear(input, weight)
 ```
 
 This prints:
