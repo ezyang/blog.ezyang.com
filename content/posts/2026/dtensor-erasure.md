@@ -1,7 +1,6 @@
 ---
 title: "DTensor erasure"
 date: 2026-02-01T23:20:12-05:00
-draft: true
 slug: "dtensor-erasure"
 categories: [PyTorch]
 ---
