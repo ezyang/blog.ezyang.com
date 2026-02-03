@@ -40,3 +40,78 @@ grad_input: Replicate()
 We see that the backwards formula for sum is a plain eager operation that expands `grad_sum`.  This operation will produce a Replicate tensor.  But the primal-cotangent sharding mapping specifies that `grad_input` should be a `Shard(0)` tensor; a (free) redistribute from `Replicate` to `Shard(0)` is required.  In ordinary DTensor, we discover this redistribution happens later when there is a shard-replicate interaction; however, with DTensor erasure, there is no way to discover this, and we must ban this `sum`.
 
 To resolve the problem, we simply need to distinguish between two distinct APIs for sum.  Standard `torch.sum` should only ever do a local summation and error out if the reduction is across a sharded dimension.  Cast to partial (aka `lax.pcast(to='unreduced')` in JAX) is a separate function that only works on sharded tensors.  The distinct function can now be associated with a custom autograd function that triggers the re-sharding in backwards.
+
+**Broadcasts over shards require conversion to 'reduced'.**  Above, I claimed that JAX's explicit mode for global SPMD only issues collectives when explicitly asked to do so.  But this isn't completely true.  When I do an operation between a sharded and replicated tensor (under JAX semantics), this can result in an implicit all-reduce in backwards:
+
+```
+import jax
+import jax.numpy as jnp
+
+jax.config.update('jax_num_cpu_devices', 4)
+jax.set_mesh(jax.make_mesh((4,), ('dp',)))
+
+batch = 8
+hidden = 16
+out_dim = 4
+
+x = jax.device_put(
+    jnp.ones((batch, hidden), dtype=jnp.float32),
+    jax.P('dp', None)
+)
+w = jax.device_put(
+    jnp.ones((hidden, out_dim), dtype=jnp.float32),
+    jax.P(None, None)
+)
+grad_out = jax.device_put(
+    jnp.ones((batch, out_dim), dtype=jnp.float32),
+    jax.P('dp', None)
+)
+
+def forward(x, w):
+    return jnp.einsum("bh,ho->bo", x, w)
+
+def backward(x, w, grad_out):
+    _, vjp_fn = jax.vjp(forward, x, w)
+    return vjp_fn(grad_out)[1]  # gradient w.r.t. w
+
+compiled = jax.jit(backward).lower(x, w, grad_out).compile()
+print(compiled.as_text())
+```
+
+This prints:
+
+```
+%add.clone (x.3: f32[], y.1: f32[]) -> f32[] {
+  %x.3 = f32[] parameter(0)
+  %y.1 = f32[] parameter(1)
+  ROOT %add.1 = f32[] add(%x.3, %y.1)
+}
+
+%fused_computation (param_0.1: f32[4,16]) -> f32[16,4] {
+  %param_0.1 = f32[4,16]{1,0} parameter(0)
+  %transpose.7 = f32[16,4]{0,1} transpose(%param_0.1), dimensions={1,0}, metadata={op_name="jit(backward)/transpose(jvp(bh,ho->bo))/transpose" stack_frame_id=3}
+  ROOT %copy.1 = f32[16,4]{1,0} copy(%transpose.7), metadata={op_name="jit(backward)/transpose(jvp(bh,ho->bo))/transpose" stack_frame_id=3}
+}
+
+ENTRY %main.0_spmd (param.1: f32[2,16], param: f32[2,4]) -> f32[16,4] {
+  %param = f32[2,4]{1,0} parameter(1), sharding={devices=[4,1]<=[4]}, metadata={op_name="grad_out"}
+  %param.1 = f32[2,16]{1,0} parameter(0), sharding={devices=[4,1]<=[4]}, metadata={op_name="x"}
+  %dot = f32[4,16]{1,0} dot(%param, %param.1), lhs_contracting_dims={0}, rhs_contracting_dims={0}, metadata={op_name="jit(backward)/transpose(jvp(bh,ho->bo))/dot_general" stack_frame_id=3}
+  %all-reduce = f32[4,16]{1,0} all-reduce(%dot), channel_id=1, replica_groups=[1,4]<=[4], use_global_device_ids=true, to_apply=%add.clone, metadata={op_name="jit(backward)/transpose(jvp(bh,ho->bo))/dot_general" stack_frame_id=3}
+  ROOT %transpose_copy_fusion = f32[16,4]{1,0} fusion(%all-reduce), kind=kLoop, calls=%fused_computation, metadata={op_name="jit(backward)/transpose(jvp(bh,ho->bo))/transpose" stack_frame_id=3}
+}
+```
+
+We can see the original program has no collectives, but the HLO has an `all-reduce`.  Actually, this is just the classic all-reduce you have to do to the gradients of all parameters when doing DP, so this isn't exactly surprising.  This is bad for DTensor erasure, though, because the way JAX knows to insert the collective here is by noticing that the backwards of the linear produces an unreduced result, but sharding-in-types demands that the gradient be replicated.
+
+Now, we could fix the *particular* case of DP by arguing that DP sharding is special and it's the responsibility of the DP framework to know that a reduction is necessary (this is how torchtitan on DTensor classically operates: we don't represent DP directly in the DTensor, and FSDP is responsible for actually doing the all-reduces and grad scaling.)  A more theoretically sound solution, however, is to simply say that einsum should forbid broadcasting a replicated tensor with a sharded tensor (even though in forwards this can be done without any communication); instead, in this case, you must have a reduced tensor on the sharded mesh axis, so that the gradient is an unreduced tensor on that mesh axis.  A conversion from replicate to reduced will trigger the all-reduce in backwards.
+
+We can do an analysis on einsum to see that the broadcast situation is the only situation where these extra reductions can occur.  Recall from [Computing sharding with einsum]({{<relref "computing-sharding-with-einsum.md">}}) that when we compute the gradient for an input, we interchange the indices for that input with the indices for the output in the einsum formula.  We can do a case-by-case analysis for every valid input sharding to see what communication happens in the backwards:
+
+* `Shard("batch"), Shard("batch") -> Shard("batch")`: interchanging an input with output still results in a batch pass-through, no comms.
+* `Shard("contract"), Shard("contract") -> Partial()`: interchanging an input with output results in `Shard("contract"), Replicate() -> Shard("contract")` (recall that the cotangent type for reduced, is unreduced, aka replicate!), no comms
+* `Shard("broadcast"), Replicate() -> Shard("broadcast")`: there are two cases here:
+  * `Shard("broadcast"), Replicate() -> Shard("broadcast")` (grad of first input): this is the same as forwards, no comms.
+  * `Shard("broadcast"), Shard("broadcast") -> Partial()` (grad of second input): contraction over sharded dimension produces partial, **yes comms**.
+
+So this really is the only situation in einsum that has this problem.  (Pointwise ops that broadcast would also have this problem.)
