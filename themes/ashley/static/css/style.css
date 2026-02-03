@@ -518,3 +518,33 @@ table { margin-top: 1em; }
 .tag-cloud { line-height: 2.2; }
 .tag-item { margin-right: 1.5em; white-space: nowrap; }
 .tag-item .count { color: var(--link-muted); font-size: 14px; }
+
+/* Heading anchor links */
+.heading-link {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+.heading-link:hover {
+  text-decoration: inherit;
+}
+
+.heading-anchor {
+  opacity: 0;
+  margin-left: 0.3em;
+  color: var(--link-muted);
+  font-weight: normal;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.heading-anchor:hover {
+  color: var(--link);
+}
+
+h3:hover .heading-anchor,
+h4:hover .heading-anchor,
+h5:hover .heading-anchor,
+h6:hover .heading-anchor {
+  opacity: 1;
+}

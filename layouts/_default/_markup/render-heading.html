@@ -3,5 +3,5 @@
 {{- $level := add .Level 2 -}}
 {{- if gt $level 6 }}{{ $level = 6 }}{{ end -}}
 <h{{ $level }} id="{{ .Anchor | safeURL }}"{{ with .Attributes }} {{ range $k, $v := . }} {{ $k }}="{{ $v }}"{{ end }}{{ end }}>
-  {{- .Text | safeHTML -}}
+  <a class="heading-link" href="{{ .Page.RelPermalink }}#{{ .Anchor | safeURL }}">{{- .Text | safeHTML -}}<span class="heading-anchor" aria-label="Anchor">¶</span></a>
 </h{{ $level }}>
