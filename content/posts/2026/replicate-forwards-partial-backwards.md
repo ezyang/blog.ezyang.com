@@ -2,7 +2,7 @@
 title: "Replicate Forwards, Partial Backwards"
 date: 2026-02-03T10:10:25-05:00
 slug: "replicate-forwards-partial-backwards"
-categories: [PyTorch]
+categories: [JAX]
 ---
 
 A central thesis of [sharding in types]({{<relref "jax-sharding-type-system.md">}}) is that the backward sharding can be directly computed from the forward sharding.  This is not true for DTensor today, e.g., as seen in [sum to Partial]({{<relref "dtensor-erasure.md#appendix">}}), and it leads to confusion where users cannot easily predict what the sharding of tensors are in their program.  The question now arises: given a forward sharding, what should its backward sharding be?  There are some easy cases to fill in:
