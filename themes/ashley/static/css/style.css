@@ -82,11 +82,11 @@ h3, .h3 {
   margin-bottom: -0.6em;
 }
 
-h4 {
-  font-size: 16px;
+h4, .h4 {
+  font-size: 18px;
   font-weight: bold;
   margin-top: 1.5em;
-  margin-bottom: -1.3em;
+  margin-bottom: -0.6em;
 }
 
 h1+h2 { margin-top: 0; }
@@ -110,6 +110,7 @@ p, ul, ol { margin-top: 1em; }
         h1, .h1 { font-size: 60px; }
         h2, .h2 { font-size: 32px; }
         h3, .h3 { font-size: 22px; }
+        h4, .h4 { font-size: 20px; }
         p, .p, ul, ol, blockquote, pre, textarea { font-size: 20px;}
         small, .small { font-size: 16px;}
       }
@@ -118,6 +119,7 @@ p, ul, ol { margin-top: 1em; }
         h1, .h1 { font-size: 80px; }
         h2, .h2 { font-size: 40px; }
         h3, .h3 { font-size: 24px; }
+        h4, .h4 { font-size: 22px; }
       }
 
 
