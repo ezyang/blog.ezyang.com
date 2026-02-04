@@ -149,6 +149,8 @@ You can individually verify that each unreduced gradient is implied by the einsu
 
 A better type signature for this function is `mlp(rx, rw1, rw3, rw2)`, where all of these arguments are reduced (`rx` on tp, and `rw{1,3,2}` on dp).  Now the reshards can be controlled by the user; you can do exactly the same communication pattern as our original implementation, or you can delay them until later.  And the best way to encourage people to write their code this way is to have replicate forwards imply partial backwards.  (P.S. It is still useful to have another variant of replicate which really does have a replicate backwards.  I don't have a good name for it, but it could occasionally be used to do an all-reduce early before fan-out would imply you have to do multiple all-reduces.)
 
+Thanks Natalia Gimelshein, Tianyu Lu, and Ailing Zhang for detailed discussions that helped me reach this position.  Thanks Twitter for [giving this position a sanity check](https://x.com/ezyang/status/2016370475589390404).  Any mistakes are my own.
+
 # Appendix
 
 Patrick Toulme requested the HLO and Shardy MLIR for the JAX program.  Here they are, generated from [this script](https://gist.github.com/ezyang/f0e541a7f426f0ab3b7399bec7a041e2).  The [raw output is here](https://gist.github.com/ezyang/53a2151fce613cf4cd6b04581146aebe).  Below, I have posted annotated versions, courtesy of Claude.
