@@ -22,7 +22,7 @@ Here are some things that suggest high stakes:
 * It does destructive/irreversible actions
 * It used by many users (human or computer)
 * It covers a large surface area
-* It constitutes BC surface
+  * It constitutes BC surface
 * It handles money, private data, secrets, lives
 * It runs automatically
 * There are no automated tests / it is tested in prod

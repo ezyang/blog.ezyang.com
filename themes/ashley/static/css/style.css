@@ -216,6 +216,11 @@ header a:hover {
   margin-left: 2em;
 }
 
+.post ul ul, .post ul ol, .post ol ul, .post ol ol {
+  margin-top: 0.25em;
+  margin-left: 1.5em;
+}
+
 .post footer ul, .post footer ol {
   margin: 0;
 }

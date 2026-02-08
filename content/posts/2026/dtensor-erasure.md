@@ -41,6 +41,8 @@ We see that the backwards formula for sum is a plain eager operation that expand
 
 To resolve the problem, we simply need to distinguish between two distinct APIs for sum.  Standard `torch.sum` should only ever do a local summation and error out if the reduction is across a sharded dimension.  Cast to partial (aka `lax.pcast(to='unreduced')` in JAX) is a separate function that only works on sharded tensors.  The distinct function can now be associated with a custom autograd function that triggers the re-sharding in backwards.
 
+Update (Feb 8, 2026): The analysis here is incomplete.  In particular, it assumes that differentiation is done *on the global tensor*.  If instead we desugar global SPMD into local SPMD operations and run a local expand operation, I don't expand "too much" and consequently have to slice it again.  So it is possible sum can still cast to partial in global SPMD.
+
 **Broadcasts over shards require conversion to 'reduced'.**  Above, I claimed that JAX's explicit mode for global SPMD only issues collectives when explicitly asked to do so.  But this isn't completely true.  When I do an operation between a sharded and replicated tensor (under JAX semantics), this can result in an implicit all-reduce in backwards:
 
 ```
